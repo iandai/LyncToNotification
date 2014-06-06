@@ -31,7 +31,47 @@ static LyncToNotificationMessageParser *parser = nil;
     parser = [[LyncToNotificationMessageParser alloc] init];
     [NSUserNotificationCenter defaultUserNotificationCenter].delegate = delegate;
     NSLog(@"END %s **********************************************", __FUNCTION__);
+    
+    // Set status bar item
+    [self SetMenuItem];
+    
 }
+
+
+- (void) SetMenuItem
+{
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    
+    NSStatusItem *statusItem = [bar statusItemWithLength:NSVariableStatusItemLength];
+    [statusItem retain];
+    [statusItem setTitle: @"Lync"];
+    [statusItem setHighlightMode:YES];
+    
+    NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu1"];
+    NSMenuItem *menuItem1 = [[NSMenuItem alloc] initWithTitle:@"Hide From Dock" action:@selector(RunInBackground) keyEquivalent:@""];
+    NSMenuItem *menuItem2 = [[NSMenuItem alloc] initWithTitle:@"Show In Dock" action:@selector(RunInForeground) keyEquivalent:@""];
+
+    [menu insertItem:menuItem1 atIndex:0];
+    [menu insertItem:menuItem2 atIndex:1];
+    
+    [statusItem setMenu:menu];
+}
+
+
+- (void) RunInBackground
+{
+    NSLog(@"Background");
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    TransformProcessType(&psn, kProcessTransformToUIElementApplication);
+}
+
+- (void) RunInForeground
+{
+    NSLog(@"Foreground");
+    ProcessSerialNumber psn = { 0, kCurrentProcess };
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+}
+
 
 - (void)IncrementBadgeLyncToNotificationExtension
 {

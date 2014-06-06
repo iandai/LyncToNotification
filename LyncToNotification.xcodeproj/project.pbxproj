@@ -418,6 +418,7 @@
 				0964719D1619678400BC1F47 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE692D4516166AEB0067D252 /* Build configuration list for PBXProject "LyncToNotification" */ = {
 			isa = XCConfigurationList;

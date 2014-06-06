@@ -93,6 +93,8 @@ struct BUser {
 {
     NSString *userName;
     NSString *message;
+//    IBOutlet NSMenu *statusMenu;
+
 }
 @property (retain) NSString *userName;
 @property (retain) NSString *message;
